@@ -18,13 +18,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int save(User user) {
-        if (user.getUuid() == null) {
-            return userMapper.insert(user);
-        } else {
-            return userMapper.update(user);
-        }
-    }
 
     public Map<String, Object> findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         pageNum = (pageNum - 1) * pageSize;
@@ -40,15 +33,14 @@ public class UserService {
     public HashMap<String, String> login(User user) {
         String username = user.getUsername();
         String password = user.getPassword();
-        String userId = user.getUuid();
         List<User> index = userMapper.login(username, password);
         Map<String, String> payload = new HashMap<>();
-        payload.put("id", userId);
         payload.put("username", username);
         String token = JwtUtil.sign(user);
         if (index.size() > 0) {
             return new HashMap<String, String>() {{
                 put("token", token);
+                put("username", user.getUsername());
                 put("msg", "登录成功");
                 put("status", "true");
 
@@ -56,7 +48,7 @@ public class UserService {
         } else {
             return new HashMap<String, String>() {{
                 put("msg", "用户名或密码错误");
-                put("status", "");
+                put("status", "false");
             }};
         }
 
@@ -78,5 +70,6 @@ public class UserService {
 
 
     }
+
 
 }

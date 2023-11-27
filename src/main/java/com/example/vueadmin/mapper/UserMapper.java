@@ -4,15 +4,15 @@ import com.example.vueadmin.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
-    @Select("select * from user")
-    List<User> findAll();
+    @Select("select avatar from user where username = #{username}")
+    String findUser(String username);
 
-
-    //    @Update("UPDATE `user`set username = #{username},password = #{password},age = #{age}, sex = #{sex} where id = #{id}")
-    int update(User user);
+    @Update("UPDATE `user`set password = #{password}")
+    int update(String password);
 
     @Delete("DELETE from `user` where id = #{id}")
     int delete(@Param("id") Integer id);
@@ -27,7 +27,8 @@ public interface UserMapper {
     List<User> login(String username, String password);
 
     @Insert("INSERT into `user` (uuid,password,username,gender,age,phone,eMail,avatar) VALUES (#{uuid},#{password},#{username},#{gender},#{age},#{phone},#{eMail},#{avatar})")
-    int insert (User user);
+    int insert(User user);
+
     @Select("SELECT * from user where username = #{username}")
     List<User> select(User user);
 }
