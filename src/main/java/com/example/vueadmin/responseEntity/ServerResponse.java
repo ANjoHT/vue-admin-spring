@@ -22,6 +22,14 @@ public class ServerResponse {
                 params
         );
     }
+    public static ServerResponse unauthorized(Object params) {
+        return new ServerResponse(
+                ResultEnum.UNAUTHORIZED.getSuccess(),
+                ResultEnum.UNAUTHORIZED.getCode(),
+                ResultEnum.UNAUTHORIZED.getMessage(),
+                params
+        );
+    }
 
     public static ServerResponse badRequest(@Nullable String message) {
         return new ServerResponse(

@@ -8,7 +8,8 @@ public enum ResultEnum {
     CREATED(true, 201, "成功"),
     NO_CONTENT(true, 204, "成功"),
     BAD_REQUEST(true, 400, "参数错误"),
-    UNAUTHORIZED(true, 401, "未授权,请登录"),
+    UNAUTHORIZED(true, 401, "用户名或密码错误"),
+    TOKEN(true, 403, "未授权,请登录"),
     NOT_FOUND(true, 404, "找不到请求的资源");
 
     private Boolean success;

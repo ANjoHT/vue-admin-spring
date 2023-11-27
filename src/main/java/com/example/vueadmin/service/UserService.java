@@ -2,6 +2,7 @@ package com.example.vueadmin.service;
 
 import com.example.vueadmin.entity.User;
 import com.example.vueadmin.mapper.UserMapper;
+import com.example.vueadmin.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Service
@@ -17,7 +19,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public int save(User user) {
-        if (user.getId() == null) {
+        if (user.getUuid() == null) {
             return userMapper.insert(user);
         } else {
             return userMapper.update(user);
@@ -34,4 +36,47 @@ public class UserService {
         return res;
 
     }
+
+    public HashMap<String, String> login(User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String userId = user.getUuid();
+        List<User> index = userMapper.login(username, password);
+        Map<String, String> payload = new HashMap<>();
+        payload.put("id", userId);
+        payload.put("username", username);
+        String token = JwtUtil.sign(user);
+        if (index.size() > 0) {
+            return new HashMap<String, String>() {{
+                put("token", token);
+                put("msg", "登录成功");
+                put("status", "true");
+
+            }};
+        } else {
+            return new HashMap<String, String>() {{
+                put("msg", "用户名或密码错误");
+                put("status", "");
+            }};
+        }
+
+
+    }
+
+    public String register(User user) {
+        for (int i = 0; i < 10; i++) {
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            user.setUuid(uuid);
+        }
+        List<User> data = userMapper.select(user);
+        if (data.size() == 0) {
+            userMapper.insert(user);
+            return "注册成功";
+        } else {
+            return "该用户已存在";
+        }
+
+
+    }
+
 }

@@ -7,6 +7,7 @@ import com.example.vueadmin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,18 +19,25 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
     @GetMapping("/select")
     public ServerResponse query(){
         List<User> data =  userMapper.findAll();
         return ServerResponse.ok(data);
 
     }
-    @PostMapping("/insert")
-    public ServerResponse save(@RequestBody User user){
-        Integer data = userService.save(user);
-        return ServerResponse.ok(data);
-    }
+    @PostMapping("/login")
+    public ServerResponse login(@RequestBody User user) {
 
+        HashMap<String,String > map = userService.login(user);
+        if(map.get("msg") == "登录成功"){
+            return ServerResponse.ok(map);
+        } else {
+            return ServerResponse.unauthorized(map);
+        }
+
+    }
     @DeleteMapping("/delete/{id}")
     public ServerResponse delete(@PathVariable Integer id){
         Integer data = userMapper.delete(id);
@@ -39,6 +47,15 @@ public class UserController {
     public ServerResponse findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize){
         Map<String,Object> data = userService.findPage(pageNum,pageSize);
         return ServerResponse.ok(data);
+    }
+    @PostMapping("/register")
+    public ServerResponse register(@RequestBody User user) {
+        String data = userService.register(user);
+        if(data == "注册成功"){
+            return ServerResponse.ok(data);
+        } else {
+            return ServerResponse.badRequest(data);
+        }
     }
 
 

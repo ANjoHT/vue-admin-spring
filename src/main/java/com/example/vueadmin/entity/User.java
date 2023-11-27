@@ -12,9 +12,12 @@ import org.springframework.data.relational.core.mapping.Table;
 public class User {
     @jakarta.persistence.Id
     @Id
-    private Integer id;
+    private String uuid;
     private String username;
-    private int age;
+    private String gender;
     private String password;
-    private String sex;
+    private Integer age;
+    private String phone;
+    private String eMail;
+    private String avatar;
 }
