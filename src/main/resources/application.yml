@@ -18,3 +18,8 @@ ihrm:
     config:
       key: ihrm-company
       ttl: 3600000
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
