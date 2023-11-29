@@ -1,6 +1,7 @@
 package com.example.vueadmin.controller;
 
 import com.example.vueadmin.entity.Pet;
+import com.example.vueadmin.entity.PetQuery;
 import com.example.vueadmin.mapper.PetMapper;
 import com.example.vueadmin.responseEntity.ServerResponse;
 import com.example.vueadmin.service.PetService;
@@ -25,10 +26,10 @@ public class PetController {
         return ServerResponse.ok("成功");
     }
 
-    @GetMapping("/getPetList")
-    public ServerResponse getPetList(Integer pageNum, Integer pageSize) {
-        Map<String, Object> res = petService.getPetList(pageNum, pageSize);
-        return ServerResponse.ok(res);
+    @PostMapping("/getPetList")
+    public ServerResponse getPetList(@RequestBody PetQuery petQuery) {
+         Map<String ,Object> res = petService.getPetList(petQuery);
+         return ServerResponse.ok(res);
     }
 
     @PostMapping("/updateStatus")
@@ -40,4 +41,6 @@ public class PetController {
             return ServerResponse.badRequest("修改失败");
         }
     }
+
+
 }

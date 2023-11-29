@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.vueadmin.mapper.PetMapper"><!-- 命名空间，用来找到对应的xml文件 -->
+    <select id="queryPet">
+        select * from `pet`
+        <where>
+            <if test="petId !=null ">
+                pet_id = #{petId}
+            </if>
+            <if test="petName !='' ">
+                and pet_name = #{petName}
+            </if>
+            <if test="masterName !='' ">
+                and pet_master = #{masterName}
+            </if>
+            <if test="petStatus !=null ">
+                and pet_status = #{petStatus}
+            </if>
+        </where>
+        <if test="pageNum !=null ">
+            limit #{pageNum},#{pageSize}
+        </if>
+    </select>
+    <select id="total">
+        select count(*) from `pet`
+        <where>
+            <if test="petId !=null ">
+                pet_id = #{petId}
+            </if>
+            <if test="petName !='' ">
+                and pet_name = #{petName}
+            </if>
+            <if test="masterName !='' ">
+                and pet_master = #{masterName}
+            </if>
+            <if test="petStatus !=null ">
+                and pet_status = #{petStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

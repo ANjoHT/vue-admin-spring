@@ -1,6 +1,7 @@
 package com.example.vueadmin.mapper;
 
 import com.example.vueadmin.entity.Pet;
+import com.example.vueadmin.entity.PetQuery;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -17,9 +18,10 @@ public interface PetMapper {
     @Select("select * from `pet` limit #{pageNum}, #{pageSize}")
     List<Pet> getPageList(Integer pageNum, Integer pageSize);
 
-    @Select("select count(*) from `pet`")
-    Integer total();
+    Integer total(PetQuery petQuery);
 
     @Update("update `pet` set pet_status = #{petStatus} where pet_id = #{petId}")
     Integer update(Integer petId, int petStatus);
+
+    List<Pet> queryPet(PetQuery petQuery);
 }
