@@ -22,7 +22,7 @@ public class UserController {
 
 
     @GetMapping("/select")
-    public ServerResponse query(){
+        public ServerResponse query(){
         List<User> data =  userMapper.findAll();
         return ServerResponse.ok(data);
 
