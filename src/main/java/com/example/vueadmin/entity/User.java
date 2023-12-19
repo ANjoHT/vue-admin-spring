@@ -7,10 +7,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigInteger;
 
-@Table(name="user")
+@Table(name = "user")
 @Entity
 @Data
-
 public class User {
     @jakarta.persistence.Id
     @Id

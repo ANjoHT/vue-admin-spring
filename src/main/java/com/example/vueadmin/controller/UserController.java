@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//用户管理控制层
 
 @RestController
 @RequestMapping("/user")
@@ -54,8 +55,6 @@ public class UserController {
             return ServerResponse.badRequest(data);
         }
     }
-
-
 
 
     @PostMapping("/update")
