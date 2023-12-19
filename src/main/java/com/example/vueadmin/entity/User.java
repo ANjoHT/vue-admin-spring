@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigInteger;
+
 @Table(name="user")
 @Entity
 @Data
@@ -12,12 +14,9 @@ import org.springframework.data.relational.core.mapping.Table;
 public class User {
     @jakarta.persistence.Id
     @Id
-    private String uuid;
+    private BigInteger id;
     private String username;
-    private String gender;
     private String password;
-    private Integer age;
     private String phone;
-    private String eMail;
-    private String avatar;
+
 }

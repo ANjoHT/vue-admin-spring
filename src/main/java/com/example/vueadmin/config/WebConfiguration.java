@@ -46,7 +46,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     /**
      * 配置拦截器、拦截路径
      * 每次请求到拦截的路径，就会去执行拦截器中的方法
-     * @param configurer
+     * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -56,8 +56,9 @@ public class WebConfiguration implements WebMvcConfigurer {
         excludePath.add("/user/register");     //注册
         excludePath.add("/doc.html");     //swagger
         excludePath.add("/swagger-ui.html");     //swagger
-        excludePath.add("/swagger-resources/**");     //swagger
-        excludePath.add("/v2/api-docs");     //swagger
+        excludePath.add("/v3/api-docs/swagger-config");     //swagger
+        excludePath.add("/swagger-ui/**");     //swagger
+        excludePath.add("/v3/api-docs");     //swagger
         excludePath.add("/webjars/**");     //swagger
 //        excludePath.add("/static/**");  //静态资源
 //        excludePath.add("/assets/**");  //静态资源

@@ -8,8 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface UserMapper {
-    @Select("select avatar from user where username = #{username}")
-    String findUser(String username);
+
 
     @Update("UPDATE `user`set password = #{password}")
     int update(String password);
@@ -26,7 +25,7 @@ public interface UserMapper {
     @Select("select * from user where username=#{username} and password=#{password}")
     List<User> login(String username, String password);
 
-    @Insert("INSERT into `user` (uuid,password,username,gender,age,phone,eMail,avatar) VALUES (#{uuid},#{password},#{username},#{gender},#{age},#{phone},#{eMail},#{avatar})")
+    @Insert("INSERT into `user` (password,username,phone) VALUES (#{password},#{username},#{phone})")
     int insert(User user);
 
     @Select("SELECT * from user where username = #{username}")

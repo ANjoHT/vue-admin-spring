@@ -21,13 +21,6 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/select")
-    public ServerResponse query(@RequestParam String username) {
-        String data = userMapper.findUser(username);
-        return ServerResponse.ok(data);
-
-    }
-
     @PostMapping("/login")
     public ServerResponse login(@RequestBody User user) {
 

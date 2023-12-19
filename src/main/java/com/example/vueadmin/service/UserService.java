@@ -56,10 +56,7 @@ public class UserService {
     }
 
     public String register(User user) {
-        for (int i = 0; i < 10; i++) {
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            user.setUuid(uuid);
-        }
+
         List<User> data = userMapper.select(user);
         if (data.size() == 0) {
             userMapper.insert(user);
