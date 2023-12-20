@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.vueadmin.mapper.CategoryMapper"><!-- 命名空间，用来找到对应的xml文件 -->
+    <select id="all">
+        select *
+        from `category`
+        where parent_id = 0
+          AND id != 0
+    </select>
+
+    <select id="children">
+        select *
+        from `category`
+        where parent_id = #{id}
+    </select>
+</mapper>

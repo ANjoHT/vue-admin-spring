@@ -32,7 +32,7 @@ public class GoodsService {
         if (goodsMapper.addGoods(goods) == 1) {
             return "创建成功";
         } else {
-            return "错误";
+            return "创建失败";
         }
     }
 }
