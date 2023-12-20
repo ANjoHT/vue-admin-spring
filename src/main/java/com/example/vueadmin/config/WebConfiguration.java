@@ -21,22 +21,16 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     /**
      * 解决跨域请求
-     *
      * @param registry
      */
-    @Configuration
-    public class CorsConfig implements WebMvcConfigurer {
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**")
-                    //是否发送Cookie
-                    .allowCredentials(true)
-                    //放行哪些原始域
-                    .allowedOrigins("allowedOriginPatterns")
-                    .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
-                    .allowedHeaders("*")
-                    .exposedHeaders("*");
-        }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedHeaders("*")
+                .allowedMethods("*")
+//                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
+                .allowCredentials(true);
     }
 
     /**
