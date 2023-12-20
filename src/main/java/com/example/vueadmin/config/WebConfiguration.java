@@ -21,20 +21,27 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     /**
      * 解决跨域请求
+     *
      * @param registry
      */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedHeaders("*")
-                .allowedMethods("*")
-//                .allowedOrigins("*")
-                .allowedOriginPatterns("*")
-                .allowCredentials(true);
+    @Configuration
+    public class CorsConfig implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    //是否发送Cookie
+                    .allowCredentials(true)
+                    //放行哪些原始域
+                    .allowedOrigins("allowedOriginPatterns")
+                    .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
+                    .allowedHeaders("*")
+                    .exposedHeaders("*");
+        }
     }
 
     /**
      * 异步请求配置
+     *
      * @param configurer
      */
     @Override
@@ -46,6 +53,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     /**
      * 配置拦截器、拦截路径
      * 每次请求到拦截的路径，就会去执行拦截器中的方法
+     *
      * @param registry
      */
     @Override
